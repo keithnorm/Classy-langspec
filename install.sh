@@ -15,8 +15,10 @@ cp "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata" "$DVTFOUNDATION_PATH/DVTFoun
 # Now merge in the additonal languages to DVTFoundation.xcplugindata
 $PLISTBUDDY "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata"  -c 'Merge CAS.plist plug-in:extensions'
 
+LANGSPEC=$(cat $SCRIPT_PATH/CAS.xclangspec)
+
 # Copy in the xclangspecs for the languages (assumes in same directory as this shell script)
-cp "$SCRIPT_PATH/CAS.xclangspec" "$DVTFOUNDATION_PATH"
+echo "$LANGSPEC" > "$DVTFOUNDATION_PATH/CAS.xclangspec"
 
 # Remove any cached Xcode plugins
 rm -rf /private/var/folders/*/*/*/com.apple.DeveloperTools/*/Xcode/PlugInCache*.xcplugincache
