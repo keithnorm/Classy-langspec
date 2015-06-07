@@ -1,0 +1,188 @@
+(
+
+/****************************************************************************/
+// MARK: cas keywords
+/****************************************************************************/
+
+    {
+        Identifier = "xcode.lang.cas.identifier";
+        Syntax = {
+            StartChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_-@!#";
+            Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-#";
+            Words = (
+                "alignment",
+                "back-indicator-image",
+                "back-indicator-transition-mask-image",
+                "background-color",
+                "background-image-for-bar-position",
+                "background-image",
+                "bar-style",
+                "bar-tint-color",
+                "border-color",
+                "border-width",
+                "content-edge-insets",
+                "corner-radius",
+                "current-page-indicator-tint-color",
+                "font",
+                "foreground-color",
+                "image-edge-insets",
+                "item-positioning",
+                "item-spacing",
+                "item-width",
+                "kern",
+                "layer",
+                "ligature",
+                "line-break-mode",
+                "line-spacing",
+                "maximum-track-tint-color",
+                "nowaydude",
+                "off-image",
+                "on-image",
+                "on-tint-color",
+                "page-indicator-tint-color",
+                "paragraph-style",
+                "progress-image",
+                "progress-tint-color",
+                "scope-bar-background-image",
+                "section-index-background-color",
+                "section-index-color",
+                "section-index-tracking-background-color",
+                "selected-image-tint-color",
+                "selection-indicator-image",
+                "separator-color",
+                "separator-effect",
+                "separator-inset",
+                "shadow-blur-radius",
+                "shadow-color",
+                "shadow-image",
+                "shadow-offset",
+                "shadow-opacity",
+                "shadow-radius",
+                "shadow",
+                "strikethrough-style",
+                "stroke-color",
+                "text-alignment",
+                "text-color",
+                "thumb-tint-color",
+                "tint-color",
+                "title-color",
+                "title-edge-insets",
+                "title-position-adjustment",
+                "title-shadow-color",
+                "title-text-attributes",
+                "title-vertical-position-adjustment",
+                "track-image",
+                "track-tint-color",
+                "underline-style",
+            );
+            Type = "xcode.syntax.keyword";
+            AltType = "xcode.syntax.identifier";    // non-keywords are identifiers
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.cas.hexcolor";
+        Syntax = {
+            StartChars = "#";
+            Chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            Match = (
+                "^#[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]([0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])?$",
+            );
+            Type = "xcode.syntax.number";
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.cas.number";
+        Syntax = {
+            StartChars = "0123456789-+.";
+            Chars = "0123456789.%";
+            Match = (
+                "^[-+]?[0-9]+(\\.[0-9]+)?%?",
+                "^[-+]?\\.[0-9]+%?",
+            );
+            Type = "xcode.syntax.number";
+        };
+    },
+	{
+        Identifier = "xcode.lang.cas";
+        Description = "cas Coloring";
+        BasedOn = "xcode.lang.simpleColoring";
+        IncludeInMenu = YES;
+        Name = "CAS 2";
+        Syntax = {
+            Tokenizer = "xcode.lang.cas.lexer";
+            IncludeRules = (
+                "xcode.lang.cas.style",
+                "xcode.lang.cas.block",
+            );
+            Type = "xcode.syntax.plain";
+        };
+    },
+
+    // The following rule returns tokens to the other rules
+    {
+        Identifier = "xcode.lang.cas.lexer";
+        Syntax = {
+            IncludeRules = (
+                "xcode.lang.comment",
+                "xcode.lang.string",
+                "xcode.lang.string.singlequote",
+                "xcode.lang.cas.hexcolor",
+                "xcode.lang.cas.number",
+                "xcode.lang.cas.identifier",
+            );
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.cas.style";
+        Syntax = {
+            StartAtBOL = YES;
+            Tokenizer = "xcode.lang.cas.lexer";
+            Rules = (
+                "xcode.lang.cas.style.names",
+                "xcode.lang.cas.block",
+            );
+            Type = "xcode.syntax.definition.function";
+        };
+    },
+
+    {
+        Identifier = "xcode.lang.cas.style.names";
+        Syntax = {
+            StartAtBOL = YES;
+            Tokenizer = "xcode.lang.cas.lexer";
+            Rules = (
+                "xcode.lang.cas.style.name+",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    {
+        Identifier = "xcode.lang.cas.style.name";
+        Syntax = {
+            StartAtBOL = YES;
+            Tokenizer = "xcode.lang.cas.lexer";
+            Rules = (
+                "xcode.lang.cas.identifier",
+                ".?",
+                ",?",
+                ":?",
+            );
+            Type = "xcode.syntax.name.partial";
+        };
+    },
+    {
+        Identifier = "xcode.lang.cas.block";
+        Syntax = {
+            Tokenizer = "xcode.lang.cas.lexer";
+            Start = "{";
+            End = "}";
+            Foldable = YES;
+            Recursive = YES;
+        };
+    },
+
+
+)
