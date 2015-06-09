@@ -15,7 +15,7 @@ PLISTBUDDY=/usr/libexec/PlistBuddy
 
 DVTFOUNDATION_PATH="/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/"
 curl "https://raw.githubusercontent.com/keithnorm/Classy-langspec/master/CAS.plist" -o "temp.plist"
-curl "https://raw.githubusercontent.com/keithnorm/Classy-langspec/master/CAS.plist" -o "temp.xclangspec"
+curl "https://raw.githubusercontent.com/keithnorm/Classy-langspec/master/CAS.xclangspec" -o "temp.xclangspec"
 
 cp "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata" "$DVTFOUNDATION_PATH/DVTFoundation.xcplugindata.bak"
 # Now merge in the additonal languages to DVTFoundation.xcplugindata
